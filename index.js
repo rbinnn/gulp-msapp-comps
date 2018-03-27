@@ -8,7 +8,15 @@ var parseComps = require("./comps")
 
 var defaultConfig = {
     src: path.resolve(process.cwd(), "./components"),
-    dist: path.resolve(process.cwd(), "./dist/components")
+    dist: path.resolve(process.cwd(), "./dist/components"),
+    npm: {
+        src: path.resolve(process.cwd(), "./node_modules"),
+        dist: path.resolve(process.cwd(), "./dist/node_modules")
+    },
+    custom: {
+        src: path.resolve(process.cwd(), "./custom_modules"),
+        dist: path.resolve(process.cwd(), "./dist/custom_modules")
+    }
 }
 
 module.exports = function(options) {

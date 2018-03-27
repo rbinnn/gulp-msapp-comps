@@ -48,3 +48,40 @@ Default: `path.resolve(process.cwd(), "./components")`
 
 Type: `String`<br>
 Default: `path.resolve(process.cwd(), "./dist/components/")`
+
+#### options.npm 
+
+Type: `Object`
+
+#### options.npm.src
+
+自定义组件引用的 npm 模块源路径
+
+Type: `String`<br>
+Default: `path.resolve(process.cwd(), "./node_modules")`
+
+#### options.npm.dist
+
+自定义组件引用的 npm 模块目标路径
+
+Type: `String`<br>
+Default: `path.resolve(process.cwd(), "./dist/msapp_modules")`
+
+#### options.custom
+
+Type: `Object`
+
+#### options.custom.src
+
+自定义组件引用的外部模块源路径
+
+Type: `String`<br>
+Default: `process.cwd()`
+
+#### options.custom.dist
+
+自定义组件引用的外部模块目标路径
+
+Type: `String`<br>
+Default: `path.resolve(process.cwd(), "./dist/custom_modules")`
+
