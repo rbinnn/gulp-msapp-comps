@@ -10,15 +10,24 @@ var Comps = {
         if( !json.usingComponents || !_.isObject(json.usingComponents) ) {
             return json
         }
-        var src, dist
+        var dist, srcList = []
         var usingComponents = json.usingComponents
         var newUsingComponents = _.extend({}, usingComponents)
 
         pth = path.resolve(pth, "../")
         _.forIn(usingComponents, function(val, key) {
-            src = path.resolve(config.src, val)
+            if( !Comps.isAbsolute(val) ) {
+                return
+            }
+            if( _.isArray(config.src) ) {
+                srcList = _.map(config.src, function(item) {
+                    return path.resolve(item, val)
+                })
+            }else {
+                srcList.push(path.resolve(config.src, val))
+            }
             dist = path.resolve(config.dist, val)
-            if( Comps.copy(src, dist, val, config) ) {
+            if( Comps.copy(srcList, dist, val, config) ) {
                 newUsingComponents[key] = unix(path.relative(pth, dist))
             }
         })
@@ -26,18 +35,27 @@ var Comps = {
         return json
     },
 
-    copy: function(src, dist, comps, config) {
+    copy: function(srcList, dist, comps, config) {
         // 对小程序自定义组件的基本校验
-        if( !_.every([".js", ".wxml", ".json"], _.partial(Comps.existsFileSync, src)) ) {
+        var realSrc
+        if( !_.find(srcList, function(src) {
+                if( _.every([".js", ".wxml", ".json"], _.partial(Comps.existsFileSync, src)) ) {
+                    realSrc = src
+                    return true
+                }
+                return false
+            })
+        ) {
             throw new Error("Component is Irregular: " + comps);
-            return;
+            return
         }
+        // src and dest to be the same
+        if( realSrc === dist ) return true
         try {
-            fs.copySync(src, dist)
+            fs.copySync(realSrc, dist)
             this.syncDeps(dist, config)
         }catch(e) {
-           console.error(e)
-           return 
+           return console.error(e)            
         }
         return true
     },
@@ -76,6 +94,10 @@ var Comps = {
                 path: opts.path
             })
         }
+    },
+
+    isAbsolute: function(pth) {
+        return !/^\./.test(pth)
     }
 }
 
