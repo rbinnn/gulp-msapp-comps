@@ -28,7 +28,7 @@ var Comps = {
             }
             dist = path.resolve(config.dist, val)
             if( Comps.copy(srcList, dist, val, config) ) {
-                newUsingComponents[key] = unix(path.relative(pth, dist))
+                newUsingComponents[key] = unix(Comps.getCompsMainFile(pth, dist))
             }
         })
         json["usingComponents"] = newUsingComponents
@@ -61,10 +61,8 @@ var Comps = {
     },
 
     existsFileSync: function(src, extname) {
-        return _.find([extname, "index" + extname], function(pth) {
-            pth = path.resolve(src, pth)
-            return fs.existsSync(pth)
-        })
+        var pth = path.resolve(src, "index" + extname)
+        return fs.existsSync(pth)
     },
 
     syncDeps: function(pth, config) {
@@ -98,6 +96,13 @@ var Comps = {
 
     isAbsolute: function(pth) {
         return !/^\./.test(pth)
+    },
+
+    getCompsMainFile: function(origin, dist) {
+        var extname = this.existsFileSync(dist, ".js")
+        if( extname ) {
+            return path.relative(origin, path.resolve(dist, "index"))
+        }
     }
 }
 
