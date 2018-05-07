@@ -1,0 +1,110 @@
+<!-- 播放器UI样式，总用域videoData.info videoData.controller -->
+<!--明星/赛事直播-->
+<template name="simpleHalfScreenControlOld">
+    <view class="old-video-container" bindtap="_customTapEvent" data-cmd="goRoom" style="background-image: url('{{video_screenshot}}')">
+        <!-- <view class="live-home__play-tag live-home__play-tag_left"><i class="live-home__icon-sound"></i></view> -->
+        <view class="live-home__play-tag live-home__play-tag_right">
+            <view class="live-home__icon-people"></view>
+            {{audience_cnt}}人在看
+        </view>
+        <view class="live-home__icon-live-play"></view>
+        <view class="live-home__video-info live-home__video-info_center">
+            <view class="live-home__video-link">
+                <view class="live-home__video-text">进入直播间</view>
+                <image class="live-home__icon-arrow-right" src="./img/icon-arrow.png"></image>
+            </view>
+        </view>
+    </view>
+</template>
+
+<!-- <template name="halfScreenHomeControlOld">
+    <view class="old-video-container" bindtap="_videoGoRoom" style="background-image: url('{{video_screenshot}}');">
+        <view class="live-home__play-tag live-home__play-tag_left">直播</view>
+        <view class="live-home__play-tag live-home__play-tag_right">
+            <view class="live-home__icon-people"></view>
+            {{audience_cnt}}人在看
+        </view>
+        <view class="live-home__icon-live-play"></view>
+        <view class="live-home__video-info">
+            <image class="live-home__video-avatar" src="{{anchor_icon}}"></image>
+            <view class="live-home__video-info-content live-home__video-info-content_image">
+                <view class="live-home__video-info-title">{{room_title}}</view>
+                <view class="live-home__video-info-name">{{anchor_name}}</view>
+            </view>
+            <view class="live-home__video-link">
+                <view class="live-home__video-text">进入直播间</view>
+                <image class="live-home__icon-arrow-right" src="./img/icon-arrow.png"></image>
+            </view>
+        </view>
+    </view>
+</template> -->
+<template name="halfScreenHomeControlOld">
+
+  <!-- <view class="live-home__content"> -->
+  <view class="live-home__play live-home__play_img" 
+      style="background-image:url({{video_screenshot}}); text-align: left;"
+      bindtap="_customTapEvent" 
+      data-cmd="goRoom"
+    >
+      <view class="live-home__play-tag live-home__play-tag_right">
+        <view class="live-home__icon-people"></view>
+        {{audience_cnt}}人在看
+      </view>
+      <view class="live-home__play-content">
+        <view class="live-home__play-desc">{{room_title}}</view>
+        <view class="live-home__play-info">
+          <image src="{{anchor_icon}}" class="live-home__play-avatar-img"></image>
+          <view class="live-home__play-username">{{anchor_name}}</view>
+          <view wx:if="{{is_appointment}}" class="live-home__play-user-tag live-home__play-user-tag_follow">已关注</view>
+          <view wx:if="{{anchor_tag}}" class="live-home__play-user-tag">{{anchor_tag}}</view>
+        </view>
+      </view>  
+    </view>
+  <!-- </view> -->
+</template>
+
+
+<!-- 三种视频外部样式 -->
+<template name="star">
+  <view class="live-home__star-live">
+      <image src="{{info.backgroundUrl}}" class="live-home__star-live-banner"></image>
+      <view class="live-home__star-live-video">
+        <template is="wgvideo" data="{{...info, controller}}"></template>
+      </view>
+  </view>
+</template>
+<template name="contest">
+  <view class="live-house__wrap_bg" style="background-color: #151515;">
+    <view class="live-house__video-wrap">
+        <view class="live-house__video-content">
+            <image class="live-house__video-bg" src="{{info.backgroundUrl}}"></image>
+            <view class="live-house__video-info">
+              <view class="live-house__video-title">
+                  <view class="live-house__video-tag">{{info.contest.is_live ? '直播' : '重播'}}</view>
+                  {{info.contest.contest_name}}
+              </view>
+              <view class="live-house__video-desc">
+                  {{info.contest.battle_info}}
+              </view>
+            </view>
+            <view class="live-house__video" style="background-color: #222;">
+                <template is="wgvideo" data="{{...info, controller}}"></template>
+            </view>
+        </view>
+    </view>
+  </view>
+</template>
+<!-- halfScreenControl -> 无间距样式 -->
+<template name="normal">
+  <view class="{{info.controlName === 'halfScreenControl' ? 'live-house__video' : 'live-home__play live-home__play_video'}}" 
+    style="background-color: {{(info.controlName) === 'halfScreenHomeControlOld' ? '' : '#151515'}};"
+  >
+    <template is="wgvideo" data="{{...info, controller}}"></template>
+  </view>
+</template>
+
+<!-- 播放器 作用域 ...info, controller 安卓想要出现弹幕danmubtn必须为true -->
+<template name="wgvideo">
+  <template wx:if="{{isOldHome}}" hidden="{{!controller.isVideo}}" is="{{controlName}}" data="{{...detail}}"></template>
+</template>
+

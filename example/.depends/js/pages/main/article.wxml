@@ -1,0 +1,25 @@
+<view wx:if="{{show_loading}}" class="pvp-hero__loading-mask">
+    <view class="pvp-hero__loading-mask-text">加载中...</view>
+</view>
+<view wx:else class="pvp-strategy index_v5">
+    <!--大家都在看-->
+    <import src="tpls/live.wxml" />
+    <import src="tpls/community.wxml" />
+    <import src="tpls/qt_video.wxml" />
+    <view class="pvp-index__card_wrap" wx:if="{{block_list}}">
+        <image src="./img/topLine.png" class="pvp-index__block_top-line"/>
+        <view class="pvp-hero__block_title">大家都在看</view>
+        <view class="pvp-hero__recommand_wrap">
+            <view class="index__body">
+                <view class="index__timeline">
+                    <block wx:for="{{block_list}}" wx:key="index" wx:for-item="article">
+                        <block wx:if="{{article.tpl}}">
+                            <template is="{{article.tpl}}" data="{{article}}" />
+                        </block>
+                    </block>
+                </view>
+            </view>
+        </view>
+        <image src="./img/bottomLine.png" class="pvp-index__block_bottom-line"/>
+    </view>
+</view>

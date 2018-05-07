@@ -1,0 +1,30 @@
+<template name="qt_video">
+    <view class="index__timeline-item">
+        <view class="index__timeline-post" 
+            bindtap="goTopic" data-pos="{{article.index||8}}" data-act="2" data-type="qt"
+            data-topic_id="{{article.topic_info.topic_id}}"  data-vid="{{article.topic_info.uid}}" 
+            data-url="{{article.topic_info.jump_url}}" 
+        >
+            <view class="index__timeline-post-title">{{article.topic_info.title}}</view>
+            <view wx:if="{{article.topic_info.brief_content}}" class="index__timeline-post-desc index__timeline-post-desc_line-1">{{article.topic_info.brief_content}}</view>
+            <view class="index__timeline-post-preview index__timeline-post-preview_1">
+                <view class="index__timeline-post-thumb index__timeline-post-thumb_play"
+                    catchtap="previewThumb" data-pos="{{article.index||8}}" 
+                    data-act="2" data-type="qt" data-vtype="1" data-vid="{{article.topic_info.uid}}"
+                    data-topic_id="{{article.topic_info.topic_id}}"  
+                    data-url="{{article.topic_info.jump_url}}" 
+                >
+                    <image src="{{article.topic_info.pic_url}}" class="index__img"/>
+                    <image src="./img/play.png" class="pvp-index__live_btn-play"/>
+                </view>
+                <view class="index__live-number" wx:if="{{article.topic_info.audience_cnt}}">{{article.topic_info.audience_cnt}}人</view>
+            </view>
+        </view>
+        <view class="index__meta">
+            <view class="index__timeline-from">
+                <view class="index__timeline-from-text index__timeline-from-text_btn" wx:if="{{article.topic_info.reply_count}}">{{article.topic_info.ply_count}}回复</view>
+                <view class="index__timeline-from-via" data-pos="{{article.index||8}}" data-act="6" bindtap="goUrl" data-url="{{article.more_jump_url}}">{{article.more_desc}}</view>
+            </view>
+        </view>
+    </view>
+</template>

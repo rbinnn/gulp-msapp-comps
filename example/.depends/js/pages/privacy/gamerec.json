@@ -1,0 +1,7 @@
+{
+    "backgroundColor"              : "#efeff4",
+    "navigationBarBackgroundColor" : "#FFFFFF",
+    "backgroundTextStyle"          : "black",
+    "navigationBarTitleText"       : "我的对局记录开关",
+    "navigationBarTextStyle"       : "black"
+}

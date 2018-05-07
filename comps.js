@@ -5,6 +5,8 @@ var Deps = require("gulp-msapp-require/deps")
 var vinylFile = require('vinyl-file')
 var Vinyl = require('vinyl')
 
+var REGEXP_NOT_MODULE = /^\.$|^\.[\\\/]|^\.\.$|^\.\.[\/\\]|^\/|^[A-Z]:[\\\/]/i;
+
 var Comps = {
     parse: function(pth, json, config) {
         if( !json.usingComponents || !_.isObject(json.usingComponents) ) {
@@ -13,8 +15,8 @@ var Comps = {
         var dist, srcList = []
         var usingComponents = json.usingComponents
         var newUsingComponents = _.extend({}, usingComponents)
+        var dir = path.dirname(pth)
 
-        pth = path.resolve(pth, "../")
         _.forIn(usingComponents, function(val, key) {
             if( !Comps.isAbsolute(val) ) {
                 return
@@ -28,19 +30,21 @@ var Comps = {
             }
             dist = path.resolve(config.dist, val)
             if( Comps.copy(srcList, dist, val, config) ) {
-                newUsingComponents[key] = unix(Comps.getCompsMainFile(pth, dist))
+                newUsingComponents[key] = unix(Comps.getCompsMainFile(dir, dist))
             }
         })
         json["usingComponents"] = newUsingComponents
         return json
     },
 
-    copy: function(srcList, dist, comps, config) {
+    copy: function(srcList, dest, comps, config) {
         // 对小程序自定义组件的基本校验
-        var realSrc
+        var srcDir
+        var destDir = path.dirname(dest)
+        var filename = path.basename(dest)
         if( !_.find(srcList, function(src) {
                 if( _.every([".js", ".wxml", ".json"], _.partial(Comps.existsFileSync, src)) ) {
-                    realSrc = src
+                    srcDir = path.dirname(src)
                     return true
                 }
                 return false
@@ -50,10 +54,10 @@ var Comps = {
             return
         }
         // src and dest to be the same
-        if( realSrc === dist ) return true
+        if( unix(srcDir) === unix(destDir) ) return true
         try {
-            fs.copySync(realSrc, dist)
-            this.syncDeps(dist, config)
+            fs.copySync(srcDir, destDir)
+            this.syncDeps(dest, config)
         }catch(e) {
            return console.error(e)            
         }
@@ -61,13 +65,16 @@ var Comps = {
     },
 
     existsFileSync: function(src, extname) {
-        var pth = path.resolve(src, "index" + extname)
+        var pth = src + extname
         return fs.existsSync(pth)
     },
 
     syncDeps: function(pth, config) {
         // 同步自定义组件中引用到的外部模块或者npm模块
-        pth = path.resolve(pth, "index.js")
+        // pth = path.resolve(pth, "index.js")
+        if( !/\.js$/.test(pth) ) {
+            pth += ".js"
+        }
         var dep, contents = ""
         var file = this.getVinylFile({
             path: pth
@@ -75,8 +82,8 @@ var Comps = {
         if( !file.isNull() ) {
             dep = new Deps({
                 entry: file.path,
-                npm: config.npm,
-                custom: config.custom
+                output: config.output,
+                resolve: config.resolve
             })
             dep.parseDeps()
             contents = dep.transfrom(file.path)
@@ -95,14 +102,11 @@ var Comps = {
     },
 
     isAbsolute: function(pth) {
-        return !/^\./.test(pth)
+        return !REGEXP_NOT_MODULE.test(pth)
     },
 
     getCompsMainFile: function(origin, dist) {
-        var extname = this.existsFileSync(dist, ".js")
-        if( extname ) {
-            return path.relative(origin, path.resolve(dist, "index"))
-        }
+        return path.relative(origin, dist)
     }
 }
 

@@ -1,0 +1,75 @@
+<view class="wgui-listview wgui-listview-noafter">
+    <view class="wgui-listview__item  wgui-listview__item-noactive game-admin-setup__item_header">
+        <view class="wgui-listview__content">
+            <view class="wgui-listview__thumb">
+                <image src="{{game_item.game_icon}}" class="wgui-listview__thumb-img"/>
+            </view>
+            <view class="wgui-listview__info">
+                <view class="wgui-listview__info-title game-admin-listview__info-title">{{game_item.game_title}}</view>
+            </view>
+        </view>
+    </view>
+</view>
+
+<view class="wgui-listview">
+    <view class="wgui-listview__item wgui-listview__item-noactive game-admin-setup__item_form">
+        <view class="wgui-listview__content">
+            <view class="wgui-listview__info">
+                <label class="game-admin-setup__checkbox">
+                    {{language_conf.game_message || '接收来自游戏的消息'}}
+                    <switch checked="{{receive_msg ? false : true}}" bindchange="setFlag" data-extra="block_msg" data-flag="receive_msg"/>
+                </label>
+                <view class="wgui-listview__info-desc wgui-truncate">允许好友发送邀请、送心等消息到微信会话</view>
+            </view>
+        </view>
+    </view>
+</view>
+
+<view class="wgui-section-header">{{language_conf.allow_friend_visit||'允许他人访问'}}</view>
+
+<view class="wgui-listview">
+    <view class="wgui-listview__item wgui-listview__item-noactive game-admin-setup__item_form">
+        <view class="wgui-listview__content">
+            <view class="wgui-listview__info">
+                <label class="game-admin-setup__checkbox">
+                    {{language_conf.game_feed || '我的游戏信息'}}
+                    <block wx:if="{{global_flag.block_feed}}">
+                        <switch checked disabled color="#4cd964" class="disabled_switch"/>
+                    </block>
+                    <block wx:else>
+                        <switch checked="{{app_flag.block_feed ? false : true}}" bindchange="setFlag" data-flag="block_feed" data-extra="show_trend"/>
+                    </block>
+                </label>
+                <view class="wgui-listview__info-desc wgui-truncate">
+                    {{language_conf.inner_game_message_desc||'包括个人主页、排行榜、动态、战绩等'}}
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="{{!is_wzry ? 'ui-d-n':'wgui-listview__item game-admin-setup__item_form'}}">
+        <view class="wgui-listview__content"  bindtap="goGameRecord">
+            <view class="wgui-listview__info">
+                <label class="game-admin-setup__checkbox">
+                    我的对局记录
+                </label>
+                <view class="wgui-listview__info-desc wgui-truncate">我的战绩中的最近战绩</view>
+            </view>
+            <image src="img/arrow-right.png" class="arrow-right arrow-mid-right"/>
+        </view>
+    </view>
+</view>
+
+<view class="game-admin-authority">
+    <view class="game-admin-authority__title">{{language_conf.agree_game||'你已经同意该游戏'}}</view>
+    <view class="game-admin-authority__list">
+        <view class="list_dot">{{language_conf.friend_list||'获取你的好友列表'}}</view>
+        <view class="list_dot">{{language_conf.friend_message||'发送消息给好友'}}</view>
+        <view class="list_dot">{{language_conf.base_information||'使用基本资料登录此应用'}}</view>
+    </view>
+</view>
+
+<view class="ui-pl-large ui-pr-large ui-pb-large">
+    <view class="button wgui-btn wgui-btn_danger wgui-btn_lg" bindtap="cancelBind">
+        {{language_conf.cancel_association||'取消游戏关联'}}
+    </view>
+</view>

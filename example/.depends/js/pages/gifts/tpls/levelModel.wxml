@@ -1,0 +1,25 @@
+<template name="levelModel">
+    <view class="single-gift__title">
+        {{seqItem.model_name}}
+        <view 
+            wx:if="{{seqItem.tips}}"
+            bindtap="showTips"
+            data-tips="{{seqItem.tips}}"
+            class="single-gift__title-link">
+            领取规则
+        </view>
+    </view>
+    <block wx:for="{{seqItem.gift}}" wx:for-key="levelIdx" wx:key="levelIdx" wx:for-item="level">
+        <view class="gift-details__small-title">
+            <text>{{level.desc}}</text>
+        </view>
+        <view class="single-gift__content-gifts" style="margin-top: 0;" bindtap="goGiftDetail" data-giftid="{{level.giftid}}">
+            <image src="{{level.icon}}" class="single-gift__content-gifts-img"/>
+        </view>
+        <view class="gift-details__btn">
+            <view type="button" class="wgui-btn wgui-btn_primary {{level.state==3?'wgui-btn_disabled':''}}" 
+                bindtap="getGift" data-giftid="{{level.giftid}}" data-state="{{level.state}}"
+            >{{level.state==3?'已':''}}领取</view>
+        </view>
+    </block>
+</template>

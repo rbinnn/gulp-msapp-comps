@@ -1,0 +1,18 @@
+<template name="head_topic">
+    <view class="pvp-hero__announcement_wrap" bindtap="goUrl" data-topic_id="{{feed.topic_id}}" data-url="{{feed.url||''}}" data-pos="7" data-act="6">
+        <view class="pvp-hero__announcement">
+            <view class="pvp-hero__announcement_info {{feed.title_content_cls}}">
+                <view class="pvp-hero__announcement_title">{{feed.title}}</view>
+                <view class="pvp-hero__announcement_desc">
+                    {{feed.content}}
+                </view>
+            </view>
+            <block wx:if="{{feed.preview_pic_url_list && feed.preview_pic_url_list.length>0}}">
+                <image src="{{feed.preview_pic_url_list[0]}}" mode="aspectFill" class="pvp-hero__announcement_pic"
+                    catchtap="previewThumb" data-index="0" data-type="{{feed.preview_pic_url_list[0].type}}" 
+                    data-topic_id="{{feed.topic_id}}" data-url="{{feed.preview_pic_url_list[0]}}"/>
+            </block>
+        </view>
+        <view class="pvp-hero__announcement_date">{{feed.last_reply_time_desc}}</view>
+    </view>
+</template>

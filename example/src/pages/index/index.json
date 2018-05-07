@@ -1,0 +1,7 @@
+{
+    "navigationBarBackgroundColor" : "#f5f7f9",
+    "backgroundColor"              : "#f5f7f9",
+    "usingComponents": {
+        "video": "tvideo/index"
+    }
+}

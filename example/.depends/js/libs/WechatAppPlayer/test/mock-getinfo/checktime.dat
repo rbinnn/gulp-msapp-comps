@@ -1,0 +1,6 @@
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin:http://v.qq.com
+Date: Fri, 25 Jan 2013 16:49:29 GMT
+Content-Type: application/javascript;charset=utf8
+
+QZOutputJson={"s":"o","t":1492420275,"ip":"112.97.227.189","pos":"中国-广东省-深圳市-联通","rand":"mvOSYtKVvlhwINqYaZFYEQ=="};

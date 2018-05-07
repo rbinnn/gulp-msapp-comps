@@ -1,0 +1,10 @@
+<!-- 这是自定义组件的内部WXML结构 -->
+<view class="header">
+  <slot name="header"></slot>
+</view>
+<view class="inner" bindtap="tapHandler">
+  {{innerText}}
+</view>
+<view class="footer">
+  <slot name="footer"></slot>
+</view>

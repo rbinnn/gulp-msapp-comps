@@ -1,0 +1,26 @@
+<template name="live_video">
+    <view class="index__timeline-item">
+        <view class="index__timeline-post" 
+            bindtap="goUrl" data-type="live" data-pos="{{article.index||8}}" data-act="2"
+            data-vid="{{article.tpl_video.uid}}" data-url="{{article.tpl_video.jump_url}}"
+        >
+            <view class="index__timeline-post-title">{{article.tpl_video.title}}</view>
+            <view wx:if="{{article.text_title}}" class="index__timeline-post-desc index__timeline-post-desc_line-1">{{article.text_title}}</view>
+            <view class="index__timeline-post-preview index__timeline-post-preview_1" >
+                <view class="index__timeline-post-thumb index__timeline-post-thumb_play">
+                    <image src="{{article.tpl_video.pic_url}}" class="index__img"/>
+                    <image src="./img/play.png" class="pvp-index__live_btn-play"/>
+                </view>
+                <view class="index__live-number" wx:if="{{article.tpl_video.audience_cnt}}">{{article.tpl_video.audience_cnt}}人</view>
+            </view>
+        </view>
+        <view class="index__meta">
+            <view class="index__timeline-from">
+                <image src="{{article.tpl_video.anchor_icon}}" class="index__timeline-from-user"/>
+                <view class="index__timeline-from-name">{{article.tpl_video.anchor_name}}</view>
+                <view class="index__timeline-from-action">{{article.tpl_video.tagname}}</view>
+                <view class="index__timeline-from-via" data-url="{{article.more_jump_url}}" data-exter='{{article.extern_info}}'>{{article.more_desc}}</view>
+            </view>
+        </view>
+    </view>
+</template>

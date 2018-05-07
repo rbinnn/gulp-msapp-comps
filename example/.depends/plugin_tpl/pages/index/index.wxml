@@ -1,0 +1,27 @@
+<view class="title">以下红框部分为引入插件组件1:</view>
+<!-- 插件1中的组件1使用 -->
+<nywishes ext-class="ext-inner" part-a="{{partA||'我是外部指定值,由主小程序指定，可配置'}}" bindeventb="changeValueA" bindeventa="changePartA">
+	<view slot="slot1" class="hello1" bindtap="changeMe">
+        1。插件内展示显示主程序文本，并响应主程序事件，并通过主程序来修改文本内容
+        <view>{{click_data}}</view>
+    </view>
+	<view slot="slot2" class="hello3">
+        <view>2。插件内展示显示主程序 文本+图片2,并且也可通过主程序的setData修改内容</view>
+        <view>
+            <image style="width:300rpx" mode="heightFix" src="http://ossweb-img.qq.com/upload/webplat/info/yxzj/20180417/70903975821490.jpg" />
+        </view>
+    </view>
+</nywishes>
+
+<view style="height:1em"> </view>
+<view class="title">以下红框部分为引入插件组件2:</view>
+<!-- 插件1中的组件2使用 -->
+<godknowyou bindeventg="changeValueB" ext-class="ext-inner">我是主程序内容</godknowyou>
+<button bindtap="showModal">自定义对话框</button>
+<wxg-modal
+    title="{{title}}" content="{{content}}" visible="{{showModal}}" align="justify" showCancel="{{showCancel}}" 
+    bindcomplete="getGift"
+    cancelColor="{{cancelColor}}" cancelText="{{cancelText}}" confirmColor="{{confirmColor}}" confirmText="{{confirmText}}"
+/>
+<button bindtap="showRegion">分区组件</button>
+<wxg-region bindfress_session="updateSessionId" visible="{{showRegion}}" appid="" session_id="{{session_id}}" cancelText="取消"/>

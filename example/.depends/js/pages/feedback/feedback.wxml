@@ -1,0 +1,32 @@
+<view class="feedback">
+    <view class="wgui-section-header">请选择在小程序中遇到的问题(必填)</view>
+    <radio-group class="radio-group" bindchange="getFeedType">
+        <label class="radio" wx:for="{{radios}}" wx:key="index">
+            {{item}}　<radio class="my_radio" value="{{item}}"/>
+        </label>
+    </radio-group>
+    <view class="wgui-section-header">请填写上述问题的具体描述</view>
+    <view class="feedback__textarea-box">
+        <textarea auto-focus maxlength="512" 
+            bindblur="contentIsOK"  bindinput="contentIsOK" bindchange="contentIsOK"
+            placeholder-style="font-size:14px!important;"
+            class="feedback__textarea" placeholder="输入具体描述（必填）"
+        ></textarea>
+    </view>
+    <view class="wgui-listview wgui-listview_through">
+        <view class="wgui-listview__item">
+            <view class="wgui-listview__content">
+                联系电话
+                <view class="wgui-listview__info">
+                    <input class="wgui-input" maxlength="11" bindblur="phoneIsOK" bindchange="phoneIsOK" type="number" 
+                        placeholder="选填，便于我们与您联系" 
+                        placeholder-style="font-size:14px!important;"
+                    />
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="consortia-create__button" style="margin-top: 20px;">
+        <view class="button button_primary" bindtap="collectData">提交</view>
+    </view>
+</view>

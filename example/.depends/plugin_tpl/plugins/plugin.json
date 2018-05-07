@@ -1,0 +1,9 @@
+{
+    "publicComponents": {
+        "nywishes": "components/nywishes/index",
+        "godknowyou":"components/godknowyou/index",
+        "wxg-modal": "components/modal/index",
+        "wxg-region": "components/region/index"
+    },
+    "main" : "index.js"
+}

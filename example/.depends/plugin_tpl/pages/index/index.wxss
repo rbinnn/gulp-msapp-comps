@@ -1,0 +1,11 @@
+/* pages/index.wxss */
+.title{font-weight:500;font-size:1em;line-height:2em;padding-left:.5em;text-align: left;}
+.ext-inner{
+    color: blueviolet;
+    font-size: 0.8em;
+    line-height: 48rpx;
+    border:1px solid red;
+}
+.hello1{color:red;text-align: left;}
+.hello3{color:peru;text-align: left;}
+.article{font-size:0.8rem;font-weight:normal;text-align:left;text-indent:2em;margin-top:1em;}

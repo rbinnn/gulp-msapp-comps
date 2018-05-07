@@ -1,0 +1,11 @@
+<view class="mod_player">
+    <video objectFit="fill" class="player_video" id="tvp" 
+        bindplay="onTvpPlay"
+        bindpause="onTvpPause"
+        bindended="onTvpEnded"
+        binderror="onTvpError"
+        bindtimeupdate="onTvpTimeupdate"
+        src="{{tvpUrl}}" webkit-playsinline="{{true}}" preload="auto"
+        autoplay playsinline controls
+    ></video>
+</view>

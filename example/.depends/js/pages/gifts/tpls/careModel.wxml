@@ -1,0 +1,25 @@
+<template name="careModel">
+    <view class="single-gift__title">
+        {{seqItem.model_name}}
+        <view 
+            wx:if="{{seqItem.tips}}"
+            bindtap="showTips"
+            data-tips="{{seqItem.tips}}"
+            class="single-gift__title-link">
+            领取规则
+        </view>
+    </view>
+    <block wx:for="{{seqItem.gift}}" wx:for-key="careIdx" wx:key="careIdx" wx:for-item="care">
+        <view class="gift-details__small-title">
+            <text>{{care.desc}}</text>
+        </view>
+        <view class="single-gift__content-gifts" style="margin-top: 0;"  bindtap="goGiftDetail" data-giftid="{{care.giftid}}">
+            <image src="{{care.icon}}" class="single-gift__content-gifts-img"/>
+        </view>
+        <view class="gift-details__btn">
+            <view type="button" class="wgui-btn wgui-btn_primary {{care.state==3?'wgui-btn_disabled':''}}" 
+                bindtap="getGift" data-giftid="{{care.giftid}}" data-state="{{care.state}}"
+            >{{care.state==3?'已':''}}领取</view>
+        </view>
+    </block>
+</template>

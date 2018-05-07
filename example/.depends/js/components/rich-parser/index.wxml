@@ -1,0 +1,5 @@
+<import src="./tpl/circle.wxml"/>
+
+<block wx:for="{{content.nodes}}" wx:key="">
+    <template is="circle" data="{{item}}" />
+</block>

@@ -1,0 +1,27 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            modules: true
+        }
+    },
+    // use eslint-config-airbnb JavaScript guide
+    "extends": "eslint-config-airbnb",
+    "rules": {
+        "indent": 0,
+        "quotes": 0,
+        "semi": 0,
+        "no-multi-spaces": 0,
+        "curly": 0,
+        "no-mixed-spaces-and-tabs": 0,
+        "space-in-parens": 0,
+        "prefer-const": 0,
+        "no-param-reassign": 0,
+        "key-spacing": 0,
+        "comma-dangle": 0
+    }
+}

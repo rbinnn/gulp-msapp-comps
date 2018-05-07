@@ -1,0 +1,55 @@
+<view class="wgui-section-header">{{language_conf.allow_friend_visit||'允许他人访问'}}</view>
+<view class="wgui-listview">
+    <view class="wgui-listview__item wgui-listview__item-noactive game-admin-setup__item_form-normal">
+        <view class="wgui-listview__content wgui-listview__content-noafter">
+            <view class="wgui-listview__info">
+                <label class="game-admin-setup__checkbox">
+                    {{language_conf.game_feed||'我的游戏信息'}}
+                    <switch bindchange="setFlag" checked="{{global_flag.block_feed?false:true}}" data-flag="block_feed" />
+                </label>
+            </view>
+        </view>
+        <view class="wgui-listview__info-desc wui-truncate ui-pb-medium" style="color: #b2b2b2;font-size: 12px;margin-top: -10px;">
+            {{language_conf.game_message_desc||'包括排行榜、动态、战绩、个人主页中的在玩信息等'}}
+        </view>
+    </view>
+</view>
+
+<view class="wgui-section-header">允许系统收录与推荐</view>
+<view class="wgui-listview">
+    <view class="wgui-listview__item wgui-listview__item-noactive game-admin-setup__item_form-normal">
+        <view class="wgui-listview__content wgui-listview__content-noafter">
+            <view class="wgui-listview__info">
+                <label class="game-admin-setup__checkbox">
+                    我的游戏视频
+                    <switch bindchange="setFlag" checked="{{global_flag.block_smoba_game_master_video?false:true}}"  data-flag="block_smoba_game_master_video"/>
+                </label>
+            </view>
+        </view>
+        <view class="wgui-listview__info-desc wui-truncate ui-pb-medium" style="color: #b2b2b2;font-size: 12px;margin-top: -10px;">
+            关于视频收录与推荐，可点击了解“<text class="hightlight" catchtap="goVideoIntro">大神视频介绍</text>”
+        </view>
+    </view>
+</view>
+<block wx:if="{{game_list&&game_list.length>0}}">
+    <view class="wgui-section-header">游戏管理</view>
+    <view class="wgui-listview">
+        <block wx:for="{{game_list}}" wx:key="index" wx:for-item="game">
+            <view class="wgui-listview__item" data-appid="{{game.game_item.app_id}}" bindtap="goGameDetail">
+                <view class="wgui-listview__content">
+                    <view class="wgui-listview__thumb">
+                        <image src="{{game.game_item.game_icon}}" class="wgui-listview__thumb-img" />
+                    </view>
+                    <view class="wgui-listview__info">
+                        <view class="wgui-listview__info-title">{{game.game_item.game_title}}</view>
+                        <view class="wgui-listview__info-desc wgui-truncate">
+                            {{game.app_flag.block_feed || global_flag.block_feed ? '不':''}}{{language_conf.show_dynamic}}，
+                            {{game.app_flag.block_msg ? '不':''}}{{language_conf.game_message}}
+                        </view>
+                    </view>
+                </view>
+                <image src="img/arrow-right.png" class="arrow-right arrow-mid-right"/>
+            </view>
+        </block>
+    </view>
+</block>

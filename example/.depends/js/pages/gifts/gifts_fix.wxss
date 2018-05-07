@@ -1,0 +1,5 @@
+.single-gift__content-item_disabled .single-gift__content-item-wrap::before{margin-left:-65rpx;margin-top:-83rpx;width:130rpx;border-radius:10rpx;}
+page{background:#ffffff;}
+.gift-details__btn .wgui-btn{line-height:50rpx;}
+.gift__loading-mask{position:fixed;top:0;left:0;z-index:9999;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;width:100%;height:100%;background-color:#F7F7F7}
+.gift__loading-mask-text{font-size:34rpx;color:#888}

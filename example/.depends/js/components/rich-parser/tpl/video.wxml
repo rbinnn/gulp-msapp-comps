@@ -1,0 +1,6 @@
+<template name="video">
+  <!--增加video标签支持，并循环添加-->
+  <view class="{{item.classStr}}" style="{{item.styleStr}}">
+    <video class="{{item.classStr}} live-detail__video" src="{{item.attr.src}}"></video>
+  </view>
+</template>

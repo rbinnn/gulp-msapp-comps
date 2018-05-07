@@ -1,0 +1,7 @@
+<view class="mod_player">
+    <video src="{{video_url}}" poster="{{pic_url}}" 
+        width="310" height="174" class="player_video"
+        autoplay playsinline controls 
+        webkit-playsinline="{{true}}" preload="auto"
+    ></video>
+</view>

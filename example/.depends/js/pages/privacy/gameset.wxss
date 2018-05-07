@@ -1,0 +1,139 @@
+@import "privacy.wxss"
+page{
+    overflow:hidden;
+}
+page, .game-admin-setup__item_header {
+    background-color: #EFEFF4;
+}
+
+.game-admin-setup__item_form-normal .game-admin-setup__checkbox {
+    font-size: 14px;
+    font-size: 28rpx;
+    font-weight: normal;
+}
+.game-admin-setup__item_form .wui-listview__info-desc {
+    color: #999;
+    font-size: 12px;
+    font-size: 24rpx;
+}
+.game-admin-listview__info-title{
+    font-weight: 600;
+}
+.game-admin-setup__checkbox {
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    width: 100%;
+    padding-right: 25px;
+    padding-right: 50rpx;
+    font-size: 14px;
+    font-size: 28rpx;
+}
+switch {
+    margin-right:-30px;
+    margin-right:-60rpx;
+}
+
+.disabled_switch {
+    opacity: 0.3;
+}
+.game-admin-authority {
+    padding: 18px 15px;
+    padding: 36rpx 30rpx;
+}
+.game-admin-authority__title {
+    font-size: 14px;
+    font-size: 28rpx;
+    color: #454545;
+    font-weight: bold;
+}
+.game-admin-authority__list {
+    padding-top: 5px;
+    padding-top: 10rpx;
+    font-size: 14px;
+    font-size: 28rpx;
+}
+.game-admin-authority__list view {
+    list-style-type: disc;
+    color: #737373;
+    margin-left: 5px;
+    margin-left: 10rpx;
+}
+.arrow-mid-right {
+    top: 28px;
+    top: 56rpx;
+}
+.wgui-listview__info-desc,.game-admin-authority__list{
+    font-size:28rpx;
+    font-size:14px;
+}
+.wgui-btn {
+    position: relative;
+    display: inline-block;
+    padding: 5px 15px;
+    padding: 10rpx 30rpx;
+    outline: 0;
+    border: 0;
+    box-shadow: 0 0 1px #dadada inset;
+    color: #494949;
+    text-align: center;
+    font-size: 14px;
+    font-size: 28rpx;
+    line-height: 30px;
+    line-height: 60rpx;
+    background: #f5f5f5;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f8f8f8), color-stop(1, #f2f2f2));
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border-radius: 5px;
+    border-radius: 10rpx;
+    background-clip: padding-box;
+}
+.wgui-btn_danger {
+    background: #eb5050;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ec5050), color-stop(1, #e94f4f));
+    box-shadow: 0 0 1px #cb4445 inset;
+    color: #fff;
+}
+.wgui-btn_lg {
+    display: block;
+    padding: 0;
+    width: 100%;
+    height: 41px;
+    height: 82rpx;
+    text-align: center;
+    font-size: 16px;
+    font-size: 32rpx;
+    line-height: 41px;
+    line-height: 82rpx;
+}
+.ui-pl-large {
+    padding-left: 15px;
+    padding-left: 30rpx;
+}
+.ui-pr-large {
+    padding-right: 15px;
+    padding-right: 30rpx;
+}
+.ui-pb-large {
+    padding-bottom: 15px;
+    padding-bottom: 30rpx;
+}
+.list_dot{
+    line-height: 40rpx;
+}
+.list_dot:before{
+    display:inline-block;
+    font-size:5px;
+    line-height:5px;
+    content:'x';
+    color:transparent;
+    border-radius: 5px;
+    background: #737373;
+    width: 5px;
+    margin-right:9px;
+    margin-top:-1px;
+    vertical-align:middle;
+}

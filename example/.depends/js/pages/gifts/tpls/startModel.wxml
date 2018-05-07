@@ -1,0 +1,17 @@
+<template name="startModel">
+    <view class="single-gift__title"> 启动特权 </view>
+    <view class="gift-details__gift-content">
+        <view class="gift-details__star-power ui-flex">
+            <block wx:for="{{seqItem.gift}}" wx:key="startIdx" wx:for-key="startIdx" wx:for-item="start">
+            <view class="gift-details__star-item ui-flex__item">
+                <image src="{{start.icon}}" class="gift-details__star-item-img"/>
+                <span class="gift-details__star-item-name">{{start.model_name}}</span>
+            </view>
+            </block>
+        </view>
+        <view class="gift-details__btn" >
+            <view type="button" class="wgui-btn wgui-btn_primary" 
+                bindtap="goUrl" data-url="{{seqItem.url}}">参与特权</view>
+        </view>
+    </view>
+</template>

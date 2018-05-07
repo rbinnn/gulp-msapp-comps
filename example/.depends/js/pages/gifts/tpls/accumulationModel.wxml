@@ -1,0 +1,31 @@
+<template name="accumulationModel">
+    <view class="single-gift__title">
+        {{seqItem.model_name}}
+        <view 
+            wx:if="{{seqItem.tips}}"
+            bindtap="showTips"
+            data-tips="{{seqItem.tips}}"
+            class="single-gift__title-link">
+            领取规则
+        </view>
+    </view>
+    <view class="single-gift__content-list">
+        <view class="single-gift__content-list">
+            <block wx:for="{{seqItem.gift}}" wx:for-key="accIdx" wx:key="accIdx" wx:for-item="acc">
+                <view class="single-gift__content-item" bindtap="goGiftDetail" data-giftid="{{acc.giftid}}">
+                    <view wx:if="{{acc.sign_days}}" class="single-gift__content-item-date">
+                        签到{{acc.sign_days}}天
+                    </view>
+                    <view class="single-gift__content-item-wrap">
+                        <image src="{{acc.icon}}" class="single-gift__content-item-img" />
+                    </view>
+                </view>
+            </block>
+        </view>
+    </view>
+    <view class="gift-details__btn">
+        <view type="button" class="wgui-btn wgui-btn_primary {{acc.state==3?'wgui-btn_disabled':''}}" 
+           bindtap="getGift" data-giftid="{{acc.giftid}}" data-state="{{acc.state}}"
+        >{{acc.state==3?'已':''}}领取</view>
+    </view>
+</template>
