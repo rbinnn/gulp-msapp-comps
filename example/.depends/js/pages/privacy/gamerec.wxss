@@ -1,6 +1,0 @@
-@import "gameguru.wxss"
-
-.player-video__post-img {
-    width: 320px;
-    height: 179px;
-}

@@ -1,5 +1,0 @@
-<template name="text">
-    <view class="live-detail__text">
-        {{item.text}}
-    </view>
-</template>

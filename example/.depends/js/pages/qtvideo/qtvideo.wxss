@@ -1,3 +1,0 @@
-page{background:#000;}
-.mod_player{width:750rpx;height:450rpx;position:absolute;top:50%;margin-top:-225rpx;}
-.player_video{width:100%;}

@@ -1,7 +1,0 @@
-/* plugins/components/godknowyou.wxss */
-.godknowyou{
-    color:cornflowerblue;
-    font-size:.8em;
-    margin-top:1em;
-    text-align: left;
-}

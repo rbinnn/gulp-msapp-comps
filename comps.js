@@ -16,20 +16,18 @@ var Comps = {
         var usingComponents = json.usingComponents
         var newUsingComponents = _.extend({}, usingComponents)
         var dir = path.dirname(pth)
+        var existComps
 
         _.forIn(usingComponents, function(val, key) {
             if( !Comps.isAbsolute(val) ) {
                 return
             }
-            if( _.isArray(config.src) ) {
-                srcList = _.map(config.src, function(item) {
-                    return path.resolve(item, val)
-                })
-            }else {
-                srcList.push(path.resolve(config.src, val))
+            existComps = Comps.findCompsDirname(key, val, config.src)
+            if( !existComps ) {
+                throw new Error("Can't find components : " + key)
             }
-            dist = path.resolve(config.dist, val)
-            if( Comps.copy(srcList, dist, val, config) ) {
+            dist = path.resolve(config.dist, existComps.path)
+            if( Comps.copy(existComps.src, dist, key, config) ) {
                 newUsingComponents[key] = unix(Comps.getCompsMainFile(dir, dist))
             }
         })
@@ -37,31 +35,54 @@ var Comps = {
         return json
     },
 
-    copy: function(srcList, dest, comps, config) {
+    copy: function(src, dist, comps, config) {
         // 对小程序自定义组件的基本校验
-        var srcDir
-        var destDir = path.dirname(dest)
-        var filename = path.basename(dest)
-        if( !_.find(srcList, function(src) {
-                if( _.every([".js", ".wxml", ".json"], _.partial(Comps.existsFileSync, src)) ) {
-                    srcDir = path.dirname(src)
-                    return true
-                }
-                return false
-            })
+        if( 
+            !_.every([".js", ".wxml", ".json"], _.partial(Comps.existsFileSync, src)) 
         ) {
-            throw new Error("Component is Irregular: " + comps);
+            throw new Error("Component is Irregular: " + comps + ". Must be contains .js, .json, .wxml files");
             return
         }
         // src and dest to be the same
-        if( unix(srcDir) === unix(destDir) ) return true
+        if( unix(src) === unix(dist) ) return true
         try {
-            fs.copySync(srcDir, destDir)
-            this.syncDeps(dest, config)
+            fs.copySync(path.dirname(src), path.dirname(dist))
+            this.syncDeps(dist, config)
         }catch(e) {
            return console.error(e)            
         }
         return true
+    },
+
+    findCompsDirname: function(compsName, compsPath, src) {
+        var checks = [
+            compsPath,
+            compsPath + "/index",
+            compsPath + "/" + compsName
+        ]
+        var compsSrc
+        var realCompsPath
+        if( !_.isArray(src) ) {
+            src = [src]
+        }
+
+        for(var i = 0, len = src.length; i < len; i++ ) {
+            var exist = _.find(checks, function(pth) {
+                pth = path.resolve(src[i], pth)
+                return Comps.existsFileSync(pth, ".js")
+            })
+            if( exist ) {
+                compsSrc = path.resolve(src[i], exist)
+                realCompsPath = exist
+                break
+            }
+        }
+        if( compsSrc ) {
+            return {
+                src: compsSrc,
+                path: realCompsPath
+            }
+        }
     },
 
     existsFileSync: function(src, extname) {
