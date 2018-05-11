@@ -104,7 +104,8 @@ var Comps = {
             dep = new Deps({
                 entry: file.path,
                 output: config.output,
-                resolve: config.resolve
+                resolve: config.resolve,
+                cache: config.cache
             })
             dep.parseDeps()
             contents = dep.transfrom(file.path)
