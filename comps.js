@@ -19,7 +19,7 @@ var Comps = {
         var existComps
 
         _.forIn(usingComponents, function(val, key) {
-            if( !Comps.isAbsolute(val) ) {
+            if( !Comps.isAbsolute(val) || /^plugin:\/\//.test(val) ) {
                 return
             }
             existComps = Comps.findCompsDirname(key, val, config.src)
