@@ -1,5 +1,0 @@
-<!-- 这是自定义组件的内部WXML结构 -->
-<view class="inner">
-  <video src="{{videoSrc}}"></video>
-  <slot></slot>
-</view>
