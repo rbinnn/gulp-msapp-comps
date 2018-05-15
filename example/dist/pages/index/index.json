@@ -2,9 +2,8 @@
     "navigationBarBackgroundColor": "#f5f7f9",
     "backgroundColor": "#f5f7f9",
     "usingComponents": {
-        "video1": "../../components/tvideo/index",
-        "video2": "../../components/tvideo/index",
         "rbina": "../../components/rbina/rbina",
-        "rbina1": "../../components/rbina/rbina"
+        "rbina1": "../../components/rbina/rbina",
+        "tvideo": "../../components/tvideo/index"
     }
 }

@@ -26,8 +26,8 @@ var Comps = {
             if( !existComps ) {
                 throw new Error("Can't find components : " + key)
             }
-            dist = path.resolve(config.dist, existComps.path)
-            if( Comps.copy(existComps.src, dist, key, config) ) {
+            dist = path.resolve(config.dist, existComps.origin)
+            if( Comps.copy(existComps, dist, key, config) ) {
                 newUsingComponents[key] = unix(Comps.getCompsMainFile(dir, dist))
             }
         })
@@ -35,19 +35,19 @@ var Comps = {
         return json
     },
 
-    copy: function(src, dist, comps, config) {
+    copy: function(existComps, dist, comps, config) {
         // 对小程序自定义组件的基本校验
         if( 
-            !_.every([".js", ".wxml", ".json"], _.partial(Comps.existsFileSync, src)) 
+            !_.every([".js", ".wxml", ".json"], _.partial(Comps.existsFileSync, existComps.src)) 
         ) {
             throw new Error("Component is Irregular: " + comps + ". Must be contains .js, .json, .wxml files");
             return
         }
         // src and dest to be the same
-        if( unix(src) === unix(dist) ) return true
+        if( unix(existComps.src) === unix(dist) ) return true
         try {
-            fs.copySync(path.dirname(src), path.dirname(dist))
-            this.syncDeps(dist, config)
+            fs.copySync(path.dirname(existComps.src), path.dirname(dist))
+            this.syncDeps(existComps.origin, dist, config)
         }catch(e) {
            return console.error(e)            
         }
@@ -80,7 +80,7 @@ var Comps = {
         if( compsSrc ) {
             return {
                 src: compsSrc,
-                path: realCompsPath
+                origin: realCompsPath
             }
         }
     },
@@ -90,26 +90,29 @@ var Comps = {
         return fs.existsSync(pth)
     },
 
-    syncDeps: function(pth, config) {
+    syncDeps: function(origin, dist, config) {
         // 同步自定义组件中引用到的外部模块或者npm模块
-        // pth = path.resolve(pth, "index.js")
-        if( !/\.js$/.test(pth) ) {
-            pth += ".js"
-        }
+        
         var dep, contents = ""
         var file = this.getVinylFile({
-            path: pth
+            path: path.resolve(path.dirname(dist), "./vinyl_tmp.js"),
+            contents: new Buffer("require('" + origin + "')")
         })
+        var modules = _.get(config, "resolve.modules") || []
+        if( modules.indexOf(config.src) === -1 ) {
+            modules.push(config.src)
+        }
         if( !file.isNull() ) {
             dep = new Deps({
                 entry: file.path,
-                output: config.output,
-                resolve: config.resolve,
+                file: file,
+                output: config.dist,
+                resolve: _.extend({}, config.resolve, {
+                    modules: modules
+                }),
                 cache: config.cache
             })
-            dep.parseDeps()
-            contents = dep.transfrom(file.path)
-            fs.outputFileSync(pth, contents)
+            dep.parseDeps()       
         }
     },
 
@@ -117,9 +120,7 @@ var Comps = {
         try {
             return vinylFile.readSync(opts.path, opts)
         }catch(e) {
-            return new Vinyl({
-                path: opts.path
-            })
+            return new Vinyl(opts)
         }
     },
 

@@ -1,4 +1,4 @@
-var Txv = require("../../custom_modules/js/libs/WechatAppPlayer/index.js");
+var Txv = require("../../js/libs/WechatAppPlayer/index.js");
 
 Component({
   properties: {
