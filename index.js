@@ -33,15 +33,18 @@ module.exports = function(options) {
         }
         var config = _.extend({}, defaultConfig, options)
         var pth = file.path
-        var json = {}
+        var json = file.contents
         try {
-            json = JSON.parse(file.contents)
+            json = JSON.parse(json)
             json = parseComps(pth, json, config)
             json = JSON.stringify(json, null, 4)
         }catch(e) {
-            cb(e, file)
-            return 
+            this.emit('error', new PluginError('gulp-msapp-comps', e, {
+				fileName: file.path,
+				showProperties: false
+			}));
         }
+
         file.contents = new Buffer(json)
         cb(null, file)
     })
