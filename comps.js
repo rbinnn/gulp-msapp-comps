@@ -96,7 +96,8 @@ var Comps = {
         var dep, contents = ""
         var file = this.getVinylFile({
             path: path.resolve(path.dirname(dist), "./vinyl_tmp.js"),
-            contents: new Buffer("require('" + origin + "')")
+            contents: new Buffer("require('" + origin + "')"),
+            base: config.base
         })
         var modules = _.get(config, "resolve.modules") || []
         if( modules.indexOf(config.src) === -1 ) {
@@ -106,6 +107,7 @@ var Comps = {
             dep = new Deps({
                 entry: file.path,
                 file: file,
+                base: file.base,
                 output: config.dist,
                 resolve: _.extend({}, config.resolve, {
                     modules: modules

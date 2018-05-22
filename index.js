@@ -31,7 +31,9 @@ module.exports = function(options) {
             cb(null, file)
             return
         }
-        var config = _.extend({}, defaultConfig, options)
+        var config = _.extend({}, defaultConfig, options, {
+            base: file.base
+        })
         var pth = file.path
         var json = file.contents
         try {
