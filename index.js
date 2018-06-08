@@ -40,6 +40,7 @@ module.exports = function(options) {
             json = JSON.parse(json)
             json = parseComps(pth, json, config)
             json = JSON.stringify(json, null, 4)
+            file.contents = new Buffer(json)
         }catch(e) {
             this.emit('error', new PluginError('gulp-msapp-comps', e, {
 				fileName: file.path,
@@ -47,7 +48,6 @@ module.exports = function(options) {
 			}));
         }
 
-        file.contents = new Buffer(json)
         cb(null, file)
     })
 }
